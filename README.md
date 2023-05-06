@@ -64,8 +64,8 @@ Para finalizar el viaje o la ruta habrá un botón de "Salir" para que dejé de 
 
 ## Contribuidores
 
-- Andrés Eduardo Mata Pérez ( Andres.mata@Olympian.org )
-- Carolina Rubianes Rojas ( Cayruro@gmail.com  )
-- David Maroto  ( Davinchi73@hotmail.com )
-- Emma Pérez Domínguez ( Emilypzd@gmail.com )
-- Macarena Farace ( Mcarenafarace@gmail.com )
+- Andrés Eduardo Mata Pérez (andres.mata@olympian.org)
+- Carolina Rubianes Rojas (cayruro@gmail.com)
+- David Maroto  (davinchi73@hotmail.com)
+- Emma Pérez Domínguez (emilypzd@gmail.com)
+- Macarena Farace (mcarenafarace@gmail.com)
