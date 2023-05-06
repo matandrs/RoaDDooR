@@ -1,11 +1,22 @@
 from flask import Flask, request, jsonify
 import googlemaps
 import mysql.connector
+import configparser
+import os
+import openai
 
 app = Flask(__name__)
 
+config = configparser.ConfigParser()
+config.read('credentials.props')
+
+openai_key = config['DEFAULT']['OPENAI_KEY']
+gmaps_key = config['DEFAULT']['GOOGLEMAPS_KEY']
+
+openai.api_key = openai_key
+
 # Configura tus credenciales de Google Maps API
-gmaps = googlemaps.Client(key='YOUR_GOOGLE_MAPS_API_KEY')
+gmaps = googlemaps.Client(key=gmaps_key)
 
 # Configura la conexión a la base de datos MySQL
 db_config = {
@@ -48,7 +59,7 @@ def ponderar_pueblos_gpt(pueblos, origen, preferencias, valoraciones):
     prompt += "en el siguiente formato:\n"
     prompt += "{'nombre': 'Pueblo 1', 'latitud': 40.123, 'longitud': -3.456, 'distancia': 1234, 'preferencias_coincidentes': 2, 'valoracion': 4.5}\n"
 
-    response = openai.Completion.create(engine="gpt-3.5-turbo", prompt=prompt, max_tokens=1500, n=1, stop=None, temperature=0) //Cambiar el engine
+    response = openai.Completion.create(engine="gpt-3.5-turbo", prompt=prompt, max_tokens=1500, n=1, stop=None, temperature=0)
 
     choices = response.choices[0].text.strip().split(", ")
     ranked_pueblos = [pueblos[int(index) - 1] for index in choices]
