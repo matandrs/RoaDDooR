@@ -4,6 +4,7 @@ import mysql.connector
 import configparser
 import os
 import openai
+import json
 
 app = Flask(__name__)
 
@@ -13,6 +14,9 @@ config.read('credentials.props')
 openai_key = config['DEFAULT']['OPENAI_KEY']
 gmaps_key = config['DEFAULT']['GOOGLEMAPS_KEY']
 
+usuariodb = config['BBDD']['USER']
+passworddb = config['BBDD']['PASSWORD']
+
 openai.api_key = openai_key
 
 # Configura tus credenciales de Google Maps API
@@ -20,17 +24,17 @@ gmaps = googlemaps.Client(key=gmaps_key)
 
 # Configura la conexión a la base de datos MySQL
 db_config = {
-    'user': 'usuario',
-    'password': 'contraseña',
-    'host': 'ip_del_servidor',
-    'database': 'base_de_datos',
+    'user': usuariodb,
+    'password': passworddb,
+    'host': '127.0.0.1',
+    'database': 'roaddoor',
 }
 
 def get_pueblos():
     connection = mysql.connector.connect(**db_config)
     cursor = connection.cursor()
 
-    query = "SELECT * FROM pueblos"
+    query = "SELECT * FROM pueblo"
     cursor.execute(query)
 
     pueblos = []
@@ -38,10 +42,11 @@ def get_pueblos():
         pueblos.append({
             'id': row[0],
             'nombre': row[1],
-            'latitud': row[2],
-            'longitud': row[3],
-            'descripcion': row[4],
-            'servicios': row[5]
+            'descripcion': row[2],
+            'latitud': row[3],
+            'longitud': row[4],
+            'servicios': row[5],
+            'valoracion': row[6]
         })
 
     cursor.close()
@@ -50,19 +55,21 @@ def get_pueblos():
     return pueblos
 
 
-def ponderar_pueblos_gpt(pueblos, origen, preferencias, valoraciones):
-    prompt = f"Por favor, clasifica los siguientes pueblos en función de su cercanía al origen '{origen}', las preferencias del usuario {preferencias} y las valoraciones de otros usuarios {valoraciones}:\n\n"
+def ponderar_pueblos_gpt(pueblos, origen, preferencias):
+    prompt = f"Por favor, clasifica los siguientes pueblos en función de su cercanía al origen '{origen}', las preferencias del usuario {preferencias} y las valoraciones de otros usuarios:\n\n"
     for i, pueblo in enumerate(pueblos):
         prompt += f"{i + 1}. {pueblo['nombre']} (Cercanía: {pueblo['distancia']} metros, Preferencias coincidentes: {pueblo['preferencias_coincidentes']}, Valoración: {pueblo['valoracion']} estrellas)\n"
 
     prompt += "\nOrdena los pueblos de mejor a peor opción, devolviendo los resultados en un array de JSON que contenga cada pueblo "
-    prompt += "en el siguiente formato:\n"
+    prompt += "estrictamente en el siguiente formato, sin responder nada más que el JSON:\n"
     prompt += "{'nombre': 'Pueblo 1', 'latitud': 40.123, 'longitud': -3.456, 'distancia': 1234, 'preferencias_coincidentes': 2, 'valoracion': 4.5}\n"
 
-    response = openai.Completion.create(engine="gpt-3.5-turbo", prompt=prompt, max_tokens=1500, n=1, stop=None, temperature=0)
+    response = openai.ChatCompletion.create(model="gpt-3.5-turbo",messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": prompt},
+    ], max_tokens=1500, temperature=0)
 
-    choices = response.choices[0].text.strip().split(", ")
-    ranked_pueblos = [pueblos[int(index) - 1] for index in choices]
+    ranked_pueblos = json.loads(response['choices'][0]['message']['content'])
 
     return ranked_pueblos
 
@@ -90,7 +97,7 @@ def calcular_ruta():
         distancia = distancia['rows'][0]['elements'][0]['distance']['value']
 
         preferencias_coincidentes = [pref for pref in preferencias if pref in pueblo['servicios']]
-        valoracion = get_valoracion_pueblo(pueblo['id'])  # Asumiendo que existe una función que obtiene la valoración de un pueblo
+    
 
         if distancia <= distancia_desviacion:
             pueblos_cercanos.append({
@@ -99,11 +106,11 @@ def calcular_ruta():
                 'longitud': pueblo['longitud'],
                 'distancia': distancia,
                 'preferencias_coincidentes': len(preferencias_coincidentes),
-                'valoracion': valoracion
+                'valoracion': pueblo['valoracion']
             })
 
     # Ordenar pueblos usando GPT de OpenAI
-    pueblos_ponderados = ponderar_pueblos_gpt(pueblos_cercanos, origen, preferencias, valoraciones)
+    pueblos_ponderados = ponderar_pueblos_gpt(pueblos_cercanos, origen, preferencias)
 
     # Seleccionar el número de paradas especificado por el usuario
     pueblos_seleccionados = pueblos_ponderados[:num_paradas]
