@@ -71,6 +71,9 @@ Valorar la sostenibilidad social, económica y ambiental de la localidad, así c
 Lograr un incentivo o la repoblación de zonas aisladas.
 Posibilidad de monetización de la aplicación para empresas que anuncien eventos.
 
+### Arquitectura
+![image](https://user-images.githubusercontent.com/24391863/236646771-7b580a2d-85a0-4455-b344-793814bdc91d.png)
+
 ## Contribuidores
 
 - Andrés Eduardo Mata Pérez ( Andres.mata@Olympian.org )
