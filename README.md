@@ -62,6 +62,11 @@ El diario del viaje (o viaje de Bitácora) nos permitirá descargar o imprimir e
 
 Para finalizar el viaje o la ruta habrá un botón de "Salir" para que dejé de mostrar las notificaciones al usuario en su móvil.
 
+### Esquema de funcionalidad
+
+![image](https://user-images.githubusercontent.com/24391863/236644585-885499e9-e270-40bf-b197-69bf5ef90c8b.png)
+
+
 ## Contribuidores
 
 - Andrés Eduardo Mata Pérez (andres.mata@olympian.org)
