@@ -62,15 +62,19 @@ El diario del viaje (o viaje de Bitácora) nos permitirá descargar o imprimir e
 
 Para finalizar el viaje o la ruta habrá un botón de "Salir" para que dejé de mostrar las notificaciones al usuario en su móvil.
 
-### Esquema de funcionalidad
+### Desarrollo a Futuro
 
-![image](https://user-images.githubusercontent.com/24391863/236644585-885499e9-e270-40bf-b197-69bf5ef90c8b.png)
-
+Incluir el tiempo de la localidad para poder variar el recorrido.
+Servicio de caravanas y coche compartido para usuarios Ecofriendly.
+Crear un vinculo económico entre las zonas rurales y ciudades cercanas.
+Valorar la sostenibilidad social, económica y ambiental de la localidad, así como la promoción del entorno rural, el empleo igualitario y el desarrollo juvenil.
+Lograr un incentivo o la repoblación de zonas aisladas.
+Posibilidad de monetización de la aplicación para empresas que anuncien eventos.
 
 ## Contribuidores
 
-- Andrés Eduardo Mata Pérez (andres.mata@olympian.org)
-- Carolina Rubianes Rojas (cayruro@gmail.com)
-- David Maroto  (davinchi73@hotmail.com)
-- Emma Pérez Domínguez (emilypzd@gmail.com)
-- Macarena Farace (mcarenafarace@gmail.com)
+- Andrés Eduardo Mata Pérez ( Andres.mata@Olympian.org )
+- Carolina Rubianes Rojas ( Cayruro@gmail.com  )
+- David Maroto  ( Davinchi73@hotmail.com )
+- Emma Pérez Domínguez ( Emilypzd@gmail.com )
+- Macarena Farace ( Mcarenafarace@gmail.com )
