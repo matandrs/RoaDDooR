@@ -1,4 +1,4 @@
-# RoaDDooR
+# ![image](https://user-images.githubusercontent.com/24391863/236646430-715d220f-f493-4154-866e-1994f5c46807.png)
 
 ## Descripción
 
@@ -61,6 +61,18 @@ El diario del viaje (o viaje de Bitácora) nos permitirá descargar o imprimir e
 ### Finalización del viaje
 
 Para finalizar el viaje o la ruta habrá un botón de "Salir" para que dejé de mostrar las notificaciones al usuario en su móvil.
+
+### Desarrollo a Futuro
+
+Incluir el tiempo de la localidad para poder variar el recorrido.
+Servicio de caravanas y coche compartido para usuarios Ecofriendly.
+Crear un vinculo económico entre las zonas rurales y ciudades cercanas.
+Valorar la sostenibilidad social, económica y ambiental de la localidad, así como la promoción del entorno rural, el empleo igualitario y el desarrollo juvenil.
+Lograr un incentivo o la repoblación de zonas aisladas.
+Posibilidad de monetización de la aplicación para empresas que anuncien eventos.
+
+### Arquitectura
+![image](https://user-images.githubusercontent.com/24391863/236646771-7b580a2d-85a0-4455-b344-793814bdc91d.png)
 
 ## Contribuidores
 
