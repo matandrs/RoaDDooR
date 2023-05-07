@@ -69,7 +69,14 @@ def ponderar_pueblos_gpt(pueblos, origen, preferencias):
         {"role": "user", "content": prompt},
     ], max_tokens=1500, temperature=0)
 
-    ranked_pueblos = json.loads(response['choices'][0]['message']['content'])
+    jsonString = response['choices'][0]['message']['content']
+    # quitamos los caracteres que no sirvan para el JSON como las \n y los espacios
+    jsonString = jsonString.replace('\n', '')
+    jsonString = jsonString.replace('\'', '\"')
+
+    ranked_pueblos = json.loads(jsonString)
+    # ordenamos los ranked_pueblos por la distancia
+    ranked_pueblos = sorted(ranked_pueblos, key=lambda pueblo: pueblo['distancia'])
 
     return ranked_pueblos
 
